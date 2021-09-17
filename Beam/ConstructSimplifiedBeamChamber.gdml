@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 <gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
   <define>
-    <position name="HadronForwardVac_1inHadronForwardEnvelopepos" x="0" y="0" z="0" unit="cm"/>
-    <position name="HadronForwardEnvelope_1inTOPpos" x="0" y="0" z="0" unit="cm"/>
+    <position name="HadronForwardVac_1inHadronForwardChamberpos" x="0" y="0" z="0" unit="cm"/>
+    <position name="HadronForwardChamber_1inTOPpos" x="0" y="0" z="0" unit="cm"/>
   </define>
   <materials>
     <material name="VACUUM" Z="1">
       <D unit="g/cm3" value="0"/>
       <atom unit="g/mole" value="0"/>
     </material>
-    <material name="IRON_BeamChamber" Z="26">
+    <material name="Fe_Replacing_ALUMINUM_Chamber" Z="26">
       <D unit="g/cm3" value="7.8700000000000001"/>
       <atom unit="g/mole" value="55.850000000000001"/>
     </material>
   </materials>
   <solids>
     <box name="TOP" x="20000" y="20000" z="20000" lunit="cm"/>
-    <xtru name="HadronForwardEnvelope0x1" lunit="cm">
+    <xtru name="HadronForwardChamber0x1" lunit="cm">
       <twoDimVertex x="1" y="-0"/>
       <twoDimVertex x="0.99879545620517241" y="-0.049067674327418015"/>
       <twoDimVertex x="0.99518472667219693" y="-0.098017140329560604"/>
@@ -146,7 +146,7 @@
       <twoDimVertex x="0.99518472667219693" y="0.098017140329560506"/>
       <twoDimVertex x="0.99879545620517241" y="0.049067674327418091"/>
       <section zOrder="0" zPosition="67" xOffset="0" yOffset="0" scalingFactor="3.2269999999999999"/>
-      <section zOrder="1" zPosition="500" xOffset="-5.4000000000000004" yOffset="0" scalingFactor="8.9116"/>
+      <section zOrder="1" zPosition="500" xOffset="-10.799999999999999" yOffset="0" scalingFactor="14.3116"/>
     </xtru>
     <xtru name="HadronForwardVac0x1" lunit="cm">
       <twoDimVertex x="1" y="-0"/>
@@ -278,7 +278,7 @@
       <twoDimVertex x="0.99518472667219693" y="0.098017140329560506"/>
       <twoDimVertex x="0.99879545620517241" y="0.049067674327418091"/>
       <section zOrder="0" zPosition="67" xOffset="0" yOffset="0" scalingFactor="3.1000000000000001"/>
-      <section zOrder="1" zPosition="500" xOffset="-5.4000000000000004" yOffset="0" scalingFactor="8.5"/>
+      <section zOrder="1" zPosition="500" xOffset="-10.799999999999999" yOffset="0" scalingFactor="13.9"/>
     </xtru>
   </solids>
   <structure>
@@ -286,20 +286,20 @@
       <materialref ref="VACUUM"/>
       <solidref ref="HadronForwardVac0x1"/>
     </volume>
-    <volume name="HadronForwardEnvelope">
-      <materialref ref="IRON_BeamChamber"/>
-      <solidref ref="HadronForwardEnvelope0x1"/>
+    <volume name="HadronForwardChamber">
+      <materialref ref="Fe_Replacing_ALUMINUM_Chamber"/>
+      <solidref ref="HadronForwardChamber0x1"/>
       <physvol name="HadronForwardVac_1" copynumber="1">
         <volumeref ref="HadronForwardVac"/>
-        <positionref ref="HadronForwardVac_1inHadronForwardEnvelopepos"/>
+        <positionref ref="HadronForwardVac_1inHadronForwardChamberpos"/>
       </physvol>
     </volume>
     <volume name="TOP">
       <materialref ref="VACUUM"/>
       <solidref ref="TOP"/>
-      <physvol name="HadronForwardEnvelope_1" copynumber="1">
-        <volumeref ref="HadronForwardEnvelope"/>
-        <positionref ref="HadronForwardEnvelope_1inTOPpos"/>
+      <physvol name="HadronForwardChamber_1" copynumber="1">
+        <volumeref ref="HadronForwardChamber"/>
+        <positionref ref="HadronForwardChamber_1inTOPpos"/>
       </physvol>
     </volume>
   </structure>

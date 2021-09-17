@@ -33,7 +33,7 @@ void ConstructSimplifiedBeamChamber()
   const double Be_Section_Neg = -80;
   const double Be_radius = 3.1;
   const double hardron_chamber_far_z = 500;
-  const double hardron_chamber_far_z_max_vac_R = 13.9;
+  const double hardron_chamber_far_z_max_vac_R = 24.7;
   const double hardron_chamber_far_z_x_center = 0.5 * (Be_radius - hardron_chamber_far_z_max_vac_R);
   const double hardron_chamber_far_z_vac_radius = 0.5 * (Be_radius + hardron_chamber_far_z_max_vac_R);
 
@@ -58,11 +58,11 @@ void ConstructSimplifiedBeamChamber()
   TGeoManager *geom = new TGeoManager("BeamEnvelope", "BeamEnvelope");
   //--- define some materials
   TGeoMaterial *matVacuum = new TGeoMaterial("VACUUM", 0, 0, 0);
-  TGeoMaterial *matIRON = new TGeoMaterial("IRON_BeamChamber", 55.85, 26, 7.87);
+  // tricky name as we replace the Al with Fe for radiation shielding. It also help display coloring in G4
+  TGeoMaterial *matIRON = new TGeoMaterial("Fe_Replacing_ALUMINUM_Chamber", 55.85, 26, 7.87);
   //   //--- define some media
   TGeoMedium *Vacuum = new TGeoMedium("VACUUM", 1, matVacuum);
-  TGeoMedium *IRON = new TGeoMedium("IRON_BeamChamber", 1, matIRON);
-  //--- define the transformations
+  TGeoMedium *IRON = new TGeoMedium("Fe_Replacing_ALUMINUM_Chamber", 1, matIRON);
 
   //--- make the top container volume
   Double_t worldx = 10000.;
@@ -71,7 +71,7 @@ void ConstructSimplifiedBeamChamber()
   TGeoVolume *top = geom->MakeBox("TOP", Vacuum, worldx, worldy, worldz);
   geom->SetTopVolume(top);
 
-  TGeoVolume *HadronForwardEnvelope = gGeoManager->MakeXtru("HadronForwardEnvelope", IRON, 2);
+  TGeoVolume *HadronForwardEnvelope = gGeoManager->MakeXtru("HadronForwardChamber", IRON, 2);
   TGeoXtru *xtru = (TGeoXtru *) (HadronForwardEnvelope->GetShape());
   assert(xtru);
   xtru->DefinePolygon(n_seg, x_circle.data(), y_circle.data());
