@@ -26,7 +26,7 @@ void ConstructSimplifiedBeamChamber()
 {
   // configuration constants
   const int n_seg = 128;
-  bool do_clip = true;
+  bool do_clip = false;
 
   // EIC beam chamber measurements, Version tag [Detector Chamber 210813 Far FPA]
   const double Be_Section_Pos = 67;
@@ -40,6 +40,11 @@ void ConstructSimplifiedBeamChamber()
   // EIC beam chamber measurements, Version tag [Detector Chamber 210222 ]
   const double hardron_chamber_far_z_thickness = 4.116e-1;
   const double hardron_chamber_near_z_thickness = 6.454 / 2 - Be_radius;
+
+  const double electron_chamber_far_z = -463;
+  const double electron_chamber_far_z_max_vac_R = 2.057 + tan(25e-3) * (-electron_chamber_far_z);
+  const double electron_chamber_far_z_x_center = 0.5 * (-Be_radius + electron_chamber_far_z_max_vac_R);
+  const double electron_chamber_far_z_vac_radius = 0.5 * (Be_radius + electron_chamber_far_z_max_vac_R);
 
   // An approximation of unit circle
   vector<Double_t> x_circle(n_seg);
@@ -71,6 +76,7 @@ void ConstructSimplifiedBeamChamber()
   TGeoVolume *top = geom->MakeBox("TOP", Vacuum, worldx, worldy, worldz);
   geom->SetTopVolume(top);
 
+  // hadron chambers
   TGeoVolume *HadronForwardEnvelope = gGeoManager->MakeXtru("HadronForwardChamber", IRON, 2);
   TGeoXtru *xtru = (TGeoXtru *) (HadronForwardEnvelope->GetShape());
   assert(xtru);
@@ -90,7 +96,7 @@ void ConstructSimplifiedBeamChamber()
   assert(xtru);
   xtru->DefinePolygon(n_seg, x_circle.data(), y_circle.data());
   // Be beam pipe interface
-  xtru->DefineSection(0, Be_Section_Pos,
+  xtru->DefineSection(0, Be_Section_Neg,
                       0, 0,
                       Be_radius);
   // Be far-z interface
@@ -98,6 +104,35 @@ void ConstructSimplifiedBeamChamber()
                       hardron_chamber_far_z_x_center, 0,
                       hardron_chamber_far_z_vac_radius);
   HadronForwardEnvelope->AddNode(HadronForwardVac, 1);
+
+  // electron chambers
+  TGeoVolume *ElectronForwardChamber = gGeoManager->MakeXtru("ElectronForwardChamber", IRON, 2);
+  xtru = (TGeoXtru *) (ElectronForwardChamber->GetShape());
+  assert(xtru);
+  xtru->DefinePolygon(n_seg, x_circle.data(), y_circle.data());
+  // Be beam pipe interface
+  xtru->DefineSection(1, Be_Section_Neg,
+                      0, 0,
+                      Be_radius + hardron_chamber_near_z_thickness);
+  // Be far-z interface
+  xtru->DefineSection(0, electron_chamber_far_z,
+                      electron_chamber_far_z_x_center, 0,
+                      electron_chamber_far_z_vac_radius + hardron_chamber_far_z_thickness);
+  top->AddNode(ElectronForwardChamber, 2);
+
+  TGeoVolume *ElectronForwardVac = gGeoManager->MakeXtru("ElectronForwardVac", Vacuum, 2);
+  xtru = (TGeoXtru *) (ElectronForwardVac->GetShape());
+  assert(xtru);
+  xtru->DefinePolygon(n_seg, x_circle.data(), y_circle.data());
+  // Be beam pipe interface
+  xtru->DefineSection(1, Be_Section_Neg,
+                      0, 0,
+                      Be_radius);
+  // Be far-z interface
+  xtru->DefineSection(0, electron_chamber_far_z,
+                      electron_chamber_far_z_x_center, 0,
+                      electron_chamber_far_z_vac_radius);
+  ElectronForwardChamber->AddNode(ElectronForwardVac, 1);
 
   //--- close the geometry
   geom->CloseGeometry();
