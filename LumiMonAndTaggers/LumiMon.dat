@@ -28,3 +28,12 @@ LumiSpec_YS 		6
 LumiPhotonCAL_Z 	-3700
 LumiPhotonCAL_XY 	16
 LumiPhotonCAL_DZ 	35
+#Luminosity Version
+Version			2
+#Tracker2 Size
+LumiTracker2_DZ		0.06
+LumiTracker2_XY		20
+#Dimension for single ee spectrometer Tower
+LumiSpecTower_XY	2.5
+LumiSpecTower_DZ	17
+TotalLumiSpecTower	8
