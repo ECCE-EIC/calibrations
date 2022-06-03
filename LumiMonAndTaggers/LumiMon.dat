@@ -20,11 +20,22 @@ LumiMag_DZ              60
 LumiMag_B               0.37
 LumiMag_VesselMaterial  G4_Fe
 # Lumi spectrometers up and down
-#LumiSpec_Z -3640
-#LumiSpec_XY 20
-#LumiSpec_DZ 35
-#LumiSpec_YS 6
+LumiSpec_Z 		-3640
+LumiSpec_XY 		20
+LumiSpec_DZ 		35
+LumiSpec_YS 		6
 #Luminosity direct photon calorimeter
-#LumiPhotonCAL_Z -3700
-#LumiPhotonCAL_XY 16
-#LumiPhotonCAL_DZ 35
+LumiPhotonCAL_Z 	-3700
+LumiPhotonCAL_XY 	16
+LumiPhotonCAL_DZ 	35
+#Luminosity Version
+Version			3
+#Tracker2 Details
+LumiTracker2_DZ		0.06
+LumiTracker2_XY		20
+#Tracker1 Details
+LumiTracker1Gap		2.0
+#Dimension for single ee spectrometer Tower
+LumiSpecTower_XY	2.5
+LumiSpecTower_DZ	17
+TotalLumiSpecTower	8
