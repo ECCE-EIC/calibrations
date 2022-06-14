@@ -3,12 +3,14 @@
 ##
 ## sizes are in cm and angles in radians
 ##   
+# Lumi Detector Design Version (1,2,3)
+Version			3
 # Lumi exit window
 LumiWin_X               0
 LumiWin_Y               0
 LumiWin_Z               -1850
 LumiWin_Tilt            1.3207963
-LumiWin_Thickness       0.26
+LumiWin_Thickness       1.0
 LumiWin_Height          7.4
 LumiWin_Length          29
 LumiWin_Material        G4_Al
@@ -28,8 +30,6 @@ LumiSpec_YS 		6
 LumiPhotonCAL_Z 	-3700
 LumiPhotonCAL_XY 	16
 LumiPhotonCAL_DZ 	35
-#Luminosity Version
-Version			3
 #Tracker2 Details
 LumiTracker2_DZ		0.06
 LumiTracker2_XY		20
