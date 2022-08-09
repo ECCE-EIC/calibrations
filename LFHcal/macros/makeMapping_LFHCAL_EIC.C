@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void makeMapping_LFHCAL_EIC( TString setup="2x" )
+void makeMapping_LFHCAL_EIC( TString setup="IP6-asymmetric-epic-tailcatcher" )
 {
 
   /* Global detector position / transformation */
@@ -101,6 +101,11 @@ void makeMapping_LFHCAL_EIC( TString setup="2x" )
       lhcal_z0    = 420.0; // cm,
       lhcal_dz    = 140.; // cm
       tower_dz    = 140.; //cm
+  }
+  if (setup.Contains("epic")){
+      lhcal_z0    = 410.0; // cm,
+      lhcal_dz    = 120.; // cm
+      tower_dz    = 120.; //cm
   }
 
   if (setup.Contains("tailcatcher")){
